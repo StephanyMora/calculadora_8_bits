@@ -1,0 +1,46 @@
+
+ROM used:   378/65536 (1%)
+            378/65536 (1%) including unused fragments
+
+            0.4 Average locations per line
+            7.1 Average locations per statement
+
+RAM used:   8/3968 (0%) at main() level
+            23/3968 (1%) worst case
+
+Stack used: 1 worst case (1 in main + 0 for interrupts)
+Stack size: 31
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   73    53 100  ..\template148F4620\main.c
+  834     0   0  ..\..\..\..\Program Files (x86)\PICC\devices\18F4620.h
+----- -----
+  907    53 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0    274  36    4  1688  7.3  main
+0     32   4    5             @MUL1616
+0     68   9    5             @DIV1616
+ Inline         0             @cinit1
+
+Program metrics:
+    Functions               1
+    Statements              53
+    Comments                149
+    Volume (V)              1698
+    Difficulty (D)          7.1
+    Effort to implement (E) 12009
+    Time to implement (T)   11 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   10
+    Maintainability (MI)    69
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00002     4  0  
+00004-0FFFE   374  65158  
+
+
+

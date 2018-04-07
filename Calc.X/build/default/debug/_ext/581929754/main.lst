@@ -1,0 +1,273 @@
+CCS PCH C Compiler, Version 5.012, 41559               03-abr.-18 19:12
+
+               Filename:   C:\Users\Jorge Moreno\MPLABXProjects\Calc.X\build\default\debug\_ext\581929754\main.lst
+
+               ROM used:   378 bytes (1%)
+                           Largest free fragment is 65158
+               RAM used:   8 (0%) at main() level
+                           23 (1%) worst case
+               Stack used: 1 locations
+               Stack size: 31
+
+*
+00000:  GOTO   0068
+.................... #include <18F4620.h> 
+.................... ///////////// Standard Header file for the PIC18F4620 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC18F4620 
+00004:  MOVF   13,W
+00006:  MULWF  15
+00008:  MOVFF  FF3,01
+0000C:  MOVFF  FF4,00
+00010:  MULWF  16
+00012:  MOVF   FF3,W
+00014:  ADDWF  00,F
+00016:  MOVF   14,W
+00018:  MULWF  15
+0001A:  MOVF   FF3,W
+0001C:  ADDWFC 00,W
+0001E:  MOVWF  02
+00020:  GOTO   013C (RETURN)
+00024:  CLRF   01
+00026:  CLRF   02
+00028:  CLRF   00
+0002A:  CLRF   03
+0002C:  MOVF   16,W
+0002E:  BNZ   0034
+00030:  MOVF   15,W
+00032:  BZ    0064
+00034:  MOVLW  10
+00036:  MOVWF  17
+00038:  BCF    FD8.0
+0003A:  RLCF   13,F
+0003C:  RLCF   14,F
+0003E:  RLCF   00,F
+00040:  RLCF   03,F
+00042:  MOVF   16,W
+00044:  SUBWF  03,W
+00046:  BNZ   004C
+00048:  MOVF   15,W
+0004A:  SUBWF  00,W
+0004C:  BNC   005C
+0004E:  MOVF   15,W
+00050:  SUBWF  00,F
+00052:  BTFSS  FD8.0
+00054:  DECF   03,F
+00056:  MOVF   16,W
+00058:  SUBWF  03,F
+0005A:  BSF    FD8.0
+0005C:  RLCF   01,F
+0005E:  RLCF   02,F
+00060:  DECFSZ 17,F
+00062:  BRA    0038
+00064:  GOTO   016C (RETURN)
+....................  
+.................... #list 
+....................  
+.................... #fuses HS, RC, NOFCMEN, NOIESO, PUT, NOBROWNOUT, NOWDT 
+.................... #fuses NOPBADEN, NOMCLR, STVREN, NOLVP, NODEBUG 
+.................... #use delay(clock=16000000) 
+....................  
+.................... #use fast_io(E) 
+....................  
+.................... void mostrarResultado(int8 resultado); 
+.................... void main (void){ 
+00068:  CLRF   FF8
+0006A:  BCF    FD0.7
+0006C:  MOVF   FC1,W
+0006E:  ANDLW  C0
+00070:  IORLW  0F
+00072:  MOVWF  FC1
+00074:  MOVLW  07
+00076:  MOVWF  FB4
+....................      
+....................    setup_oscillator(OSC_16MHZ); 
+00078:  MOVLW  60
+0007A:  MOVWF  FD3
+0007C:  MOVLW  40
+0007E:  MOVWF  F9B
+00080:  MOVF   FD3,W
+....................    setup_adc_ports(NO_ANALOGS); 
+00082:  MOVF   FC1,W
+00084:  ANDLW  C0
+00086:  IORLW  0F
+00088:  MOVWF  FC1
+....................     
+....................    set_tris_a(0X00); 
+0008A:  MOVLW  00
+0008C:  MOVWF  F92
+....................    set_tris_e(0x00); 
+0008E:  BCF    F96.0
+00090:  BCF    F96.1
+00092:  BCF    F96.2
+00094:  BCF    F96.3
+....................     
+....................    set_tris_b(11110000); 
+00096:  MOVLW  70
+00098:  MOVWF  F93
+....................     
+....................    set_tris_c(0xFF); 
+0009A:  MOVLW  FF
+0009C:  MOVWF  F94
+....................    set_tris_d(0xFF); 
+0009E:  MOVWF  F95
+....................     
+....................    unsigned int8 numeroPuertoD = 0; 
+....................    unsigned int8 numeroPuertoC = 0; 
+....................    int suma, resta, multiplicacion, division; 
+....................    int resultado = 0; 
+000A0:  CLRF   05
+000A2:  CLRF   06
+000A4:  CLRF   0B
+....................     
+....................    while(1){ 
+....................        int numeroUno = input_c(); 
+....................        int numeroDos = input_d(); 
+....................        int banderaError = 0; 
+000A6:  SETF   F94
+000A8:  MOVFF  F82,0C
+000AC:  SETF   F95
+000AE:  MOVFF  F83,0D
+000B2:  CLRF   0E
+....................         
+....................        if(input(PIN_B4)){ 
+000B4:  BSF    F93.4
+000B6:  BTFSS  F81.4
+000B8:  BRA    00C6
+....................            suma = 1; 
+000BA:  MOVLW  01
+000BC:  MOVWF  07
+....................            resta = 0; 
+000BE:  CLRF   08
+....................            multiplicacion = 0; 
+000C0:  CLRF   09
+....................            division = 0; 
+000C2:  CLRF   0A
+....................        }else if (input(PIN_B5)){ 
+000C4:  BRA    00FA
+000C6:  BSF    F93.5
+000C8:  BTFSS  F81.5
+000CA:  BRA    00D8
+....................            suma = 0; 
+000CC:  CLRF   07
+....................            resta = 1; 
+000CE:  MOVLW  01
+000D0:  MOVWF  08
+....................            multiplicacion = 0; 
+000D2:  CLRF   09
+....................            division = 0; 
+000D4:  CLRF   0A
+....................        }else if(input(PIN_B6)){ 
+000D6:  BRA    00FA
+000D8:  BSF    F93.6
+000DA:  BTFSS  F81.6
+000DC:  BRA    00EA
+....................            suma = 0; 
+000DE:  CLRF   07
+....................            resta = 0; 
+000E0:  CLRF   08
+....................            multiplicacion = 1; 
+000E2:  MOVLW  01
+000E4:  MOVWF  09
+....................            division = 0; 
+000E6:  CLRF   0A
+....................        }else if(input(PIN_B7)){ 
+000E8:  BRA    00FA
+000EA:  BSF    F93.7
+000EC:  BTFSS  F81.7
+000EE:  BRA    00FA
+....................            suma = 0; 
+000F0:  CLRF   07
+....................            resta = 0; 
+000F2:  CLRF   08
+....................            multiplicacion = 0; 
+000F4:  CLRF   09
+....................            division = 1; 
+000F6:  MOVLW  01
+000F8:  MOVWF  0A
+....................        } 
+....................         
+....................        if(suma){ 
+000FA:  MOVF   07,F
+000FC:  BZ    0106
+....................            resultado = (long)numeroPuertoC + (long)numeroPuertoD; 
+000FE:  MOVF   05,W
+00100:  ADDWF  06,W
+00102:  MOVWF  0B
+....................        }else if(resta){ 
+00104:  BRA    0176
+00106:  MOVF   08,F
+00108:  BZ    0116
+....................            if(numeroDos != 0){ 
+0010A:  MOVF   0D,F
+0010C:  BZ    0114
+....................                resultado = (long)numeroPuertoC - (long)numeroPuertoD; 
+0010E:  MOVF   05,W
+00110:  SUBWF  06,W
+00112:  MOVWF  0B
+....................            }else{ 
+....................                 
+....................            } 
+....................        }else if(multiplicacion){ 
+00114:  BRA    0176
+00116:  MOVF   09,F
+00118:  BZ    0142
+....................            resultado = (long)numeroPuertoC * (long)numeroPuertoD; 
+0011A:  CLRF   10
+0011C:  MOVFF  06,0F
+00120:  CLRF   03
+00122:  MOVFF  05,11
+00126:  MOVFF  03,12
+0012A:  MOVFF  10,14
+0012E:  MOVFF  06,13
+00132:  MOVFF  03,16
+00136:  MOVFF  05,15
+0013A:  BRA    0004
+0013C:  MOVFF  01,0B
+....................        }else if(division){ 
+00140:  BRA    0176
+00142:  MOVF   0A,F
+00144:  BZ    0176
+....................            if(numeroDos != 0){ 
+00146:  MOVF   0D,F
+00148:  BZ    0172
+....................                resultado = (long)numeroPuertoC / (long)numeroPuertoD; 
+0014A:  CLRF   10
+0014C:  MOVFF  06,0F
+00150:  CLRF   03
+00152:  MOVFF  05,11
+00156:  MOVFF  03,12
+0015A:  MOVFF  10,14
+0015E:  MOVFF  06,13
+00162:  MOVFF  03,16
+00166:  MOVFF  05,15
+0016A:  BRA    0024
+0016C:  MOVFF  01,0B
+....................            }else{ 
+00170:  BRA    0176
+....................                banderaError = 1; 
+00172:  MOVLW  01
+00174:  MOVWF  0E
+....................            } 
+....................        } 
+00176:  BRA    00A6
+....................    } 
+.................... }	 
+00178:  SLEEP 
+
+Configuration Fuses:
+   Word  1: 0300   RC NOFCMEN NOIESO
+   Word  2: 1E18   PUT NOBROWNOUT BORV21 NOWDT WDT32768
+   Word  3: 0500   CCP2C1 NOPBADEN LPT1OSC NOMCLR
+   Word  4: 0081   STVREN NOLVP NOXINST NODEBUG
+   Word  5: C00F   NOPROTECT NOCPB NOCPD
+   Word  6: E00F   NOWRT NOWRTC NOWRTB NOWRTD
+   Word  7: 400F   NOEBTR NOEBTRB

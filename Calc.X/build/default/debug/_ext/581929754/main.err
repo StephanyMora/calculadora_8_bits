@@ -1,0 +1,5 @@
+C:\Users\Jorge Moreno\MPLABXProjects\template148F4620\main.c:27:1:  Warning#203  Condition always TRUE
+C:\Users\Jorge Moreno\MPLABXProjects\template148F4620\main.c:28:49:  Warning#202  Variable never used:   numeroUno
+      Memory usage:   ROM=1%      RAM=0% - 1%
+      0 Errors,  2 Warnings.
+Build Successful.

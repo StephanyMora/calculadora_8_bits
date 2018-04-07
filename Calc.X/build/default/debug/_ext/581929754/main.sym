@@ -1,0 +1,83 @@
+000     @SCRATCH
+001     @SCRATCH
+001     _RETURN_
+002     @SCRATCH
+003     @SCRATCH
+005     main.numeroPuertoD
+006     main.numeroPuertoC
+007     main.suma
+008     main.resta
+009     main.multiplicacion
+00A     main.division
+00B     main.resultado
+00C     main.numeroUno
+00D     main.numeroDos
+00E     main.banderaError
+00F     main.@SCRATCH1
+010     main.@SCRATCH2
+011     main.@SCRATCH3
+012     main.@SCRATCH4
+013-014 @MUL1616.P1
+013-014 @DIV1616.P2
+015-016 @MUL1616.P1
+015-016 @DIV1616.P2
+017     @MUL1616.@SCRATCH1
+017     @DIV1616.@SCRATCH1
+F83     PSP_DATA
+FB4.6   C1OUT
+FB4.7   C2OUT
+FBB     CCP_2
+FBB     CCP_2_LOW
+FBC     CCP_2_HIGH
+FBE     CCP_1_LOW
+FBE     CCP_1
+FBF     CCP_1_HIGH
+FE1-FE2 @READ_PACKED_MEMORY.P1
+FE1-FE2 @WRITE_PACKED_MEMORY.P2
+FE9-FEA @READ_PROGRAM_MEMORY.P1
+FE9-FEA @WRITE_PACKED_MEMORY.P2
+FE9-FEA @READ_PACKED_MEMORY.P3
+FE9-FEA @WRITE_PROGRAM_MEMORY.P4
+FF6-FF8 @WRITE_PROGRAM_MEMORY.P1
+FF6-FF8 @READ_PROGRAM_MEMORY.P2
+
+ROM Allocation:
+000004  @MUL1616
+000024  @DIV1616
+000068  main
+000068  @cinit1
+000078  @cinit2
+
+Project Directory:
+    C:\Users\Jorge Moreno\MPLABXProjects\Calc.X\
+
+Project Files:
+    ..\template148F4620\main.c                              [03-abr.-18 19:12  CRC=B9145DCE]
+    ..\..\..\..\Program Files (x86)\PICC\devices\18F4620.h  [10-sep.-13 17:34  CRC=044A57BA]
+
+Source signature=C1A90D42
+
+Units:
+    ..\template148F4620\main (main)
+
+Compiler Settings:
+    Processor:      PIC18F4620
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+    Predefined symbols:
+       #define __18F4520 1
+
+Output Files:
+    XREF file:   build\default\debug\_ext\581929754\main.xsym
+    Errors:      build\default\debug\_ext\581929754\main.err
+    Ext Symbols: build\default\debug\_ext\581929754\main.esym
+    INHX32:      build\default\debug\_ext\581929754\main.hex
+    Symbols:     build\default\debug\_ext\581929754\main.sym
+    List:        build\default\debug\_ext\581929754\main.lst
+    Debug/COFF:  build\default\debug\_ext\581929754\main.cof
+    Project:     main.ccspjt
+    Call Tree:   build\default\debug\_ext\581929754\main.tre
+    Statistics:  build\default\debug\_ext\581929754\main.STA
