@@ -1,0 +1,66 @@
+#include <18F4620.h>
+#fuses HS, RC, NOFCMEN, NOIESO, PUT, NOBROWNOUT, NOWDT
+#fuses NOPBADEN, NOMCLR, STVREN, NOLVP, NODEBUG
+#use delay(clock=16000000)
+
+#use fast_io(E)
+
+void mostrarResultado(int8 resultado);
+void main (void){
+    
+   setup_oscillator(OSC_16MHZ);
+   setup_adc_ports(NO_ANALOGS);
+   set_tris_a(0X00);
+   set_tris_e(0x00);
+   set_tris_b(11110000);
+   set_tris_c(0xFF);
+   set_tris_d(0xFF);
+   unsigned int8 numeroPuertoD = 0;
+   unsigned int8 numeroPuertoC = 0;
+   bool suma = false;
+   bool resta = false;
+   bool multiplicacion = false;
+   bool division = false;
+   bool error = false;
+   int complementoA2 = 0;
+   int numeroPuertoC = input_c();
+   int numeroPuertoD = input_d();
+   while(1){   
+       if(input(PIN_B4)){
+           suma = true;
+       }else if (input(PIN_B5)){
+           resta = true;
+       }else if(input(PIN_B6)){
+           multiplicacion = true;
+       }else if(input(PIN_B7)){
+           division = true;
+       }
+       if(suma){
+           resultado = (long)numeroPuertoC + (long)numeroPuertoD;
+       }else if(resta){
+           if(numeroPuertoC >= numeroPuertoD){
+               resultado = (long)numeroPuertoC - (long)numeroPuertoD;
+           }else{
+           	error = true;
+               set_tris_a(0xFF);
+               set_tris_b(0xFF);
+               set_tris_c(0xFF);
+               delay_ms(500);
+               complementoA2 = (~numeroPuertoD) + 1;
+               resultado = numeroPuertoC + complementoA2;
+           }
+       }else if(multiplicacion){
+           resultado = (long)numeroPuertoC * (long)numeroPuertoD;
+       }else if(division){
+           if(numeroPuertoD == 0 || numeroPuertoD > numeroPuertoC){
+               error = true;
+               set_tris_a(0xFF);
+               set_tris_b(0xFF);
+               set_tris_c(0xFF);
+               delay_ms(500);
+           }else{
+               resultado = (long)numeroPuertoC / (long)numeroPuertoD;
+           }
+       }
+   }
+}	
